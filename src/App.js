@@ -7,6 +7,7 @@ import About from "./Pages/About/About";
 import Login from "./Pages/Login/Login";
 import Gallery from "./Pages/Gallery/Gallery";
 import Register from "./Pages/Register/Register";
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 function App() {
   return (

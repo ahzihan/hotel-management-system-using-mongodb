@@ -3,8 +3,16 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../../../images/logo.png";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../../firebase.init";
+import { signOut } from "firebase/auth";
 
 const Header = () => {
+  const [ user ] = useAuthState( auth );
+
+  const handleSignOut = () => {
+    signOut( auth );
+  };
   return (
     <header>
       <Navbar bg="primary" variant="dark">
@@ -33,18 +41,20 @@ const Header = () => {
             >
               About
             </Link>
-            <Link
-              className="text-white mx-3 text-decoration-none fw-bold"
-              to="/login"
-            >
-              Login
-            </Link>
-            <Link
-              className="text-white mx-3 text-decoration-none fw-bold"
-              to="/register"
-            >
-              Register
-            </Link>
+            {
+              user ? <Link onClick={handleSignOut}
+                className="text-white mx-3 text-decoration-none fw-bold"
+                to="/login"
+              >
+                Sign Out
+              </Link> : <Link
+                className="text-white mx-3 text-decoration-none fw-bold"
+                to="/login"
+              >
+                Login
+              </Link>
+            }
+
           </Nav>
         </Container>
       </Navbar>

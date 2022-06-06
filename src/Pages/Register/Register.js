@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { Link, useNavigate } from "react-router-dom";
+import auth from "../../firebase.init";
 import './Registar.css';
 
 
@@ -7,7 +9,14 @@ const Register = () => {
   const [ email, setEmail ] = useState( '' );
   const [ password, setPassword ] = useState( '' );
   const [ confirmPassword, setConfirmPassword ] = useState( '' );
+  const navigate = useNavigate();
+  const [ error, setError ] = useState( '' );
 
+  const [ createUserWithEmailAndPassword, user ] = useCreateUserWithEmailAndPassword( auth );
+
+  if ( user ) {
+    navigate( '/' );
+  }
   const handleEmail = event => {
     setEmail( event.target.value );
   };
@@ -17,11 +26,20 @@ const Register = () => {
   const handleConfirmPassword = event => {
     setConfirmPassword( event.target.value );
   };
+
   const handleFormSubmit = event => {
-
-
-
     event.preventDefault();
+
+    if ( password !== confirmPassword ) {
+      setError( 'Password did not match!, Please try again.' );
+      return;
+    }
+    if ( password.length < 6 ) {
+      setError( 'Password must be 6 character or long' );
+      return;
+    }
+    createUserWithEmailAndPassword( email, password );
+
   };
   return (
     <div className="signup-form w-50 mx-auto my-5 p-3">
@@ -48,6 +66,7 @@ const Register = () => {
           <div className="">
             <input onBlur={handleConfirmPassword} type="password" className="form-control" name="confirm_password" required="required" />
           </div>
+          <p className="text-danger">{error}</p>
         </div>
         <div className="form-group row">
           <div className="">
