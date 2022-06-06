@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Cart = ( props ) => {
     const { title, description, img, price } = props.single;
@@ -13,7 +14,7 @@ const Cart = ( props ) => {
                     <Card.Text>
                         {description}
                     </Card.Text>
-                    <Button variant="primary">Book Now</Button>
+                    <Link to='/details'><Button variant="primary">Book Now</Button></Link>
                 </Card.Body>
             </Card>
         </div>

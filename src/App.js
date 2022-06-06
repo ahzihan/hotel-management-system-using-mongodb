@@ -7,7 +7,8 @@ import About from "./Pages/About/About";
 import Login from "./Pages/Login/Login";
 import Gallery from "./Pages/Gallery/Gallery";
 import Register from "./Pages/Register/Register";
-import { useAuthState } from 'react-firebase-hooks/auth';
+import RequireAuth from "./Pages/RequireAuth/RequireAuth";
+import Details from "./Pages/Home/Details/Details";
 
 function App() {
   return (
@@ -19,6 +20,11 @@ function App() {
         <Route path="/gallery" element={<Gallery></Gallery>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/register" element={<Register></Register>}></Route>
+        <Route path="/details" element={
+          <RequireAuth>
+            <Details></Details>
+          </RequireAuth>
+        }></Route>
       </Routes>
       <Footer></Footer>
     </div>

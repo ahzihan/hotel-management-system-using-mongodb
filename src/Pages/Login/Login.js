@@ -1,13 +1,15 @@
+
 import React, { useState } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 
 const Login = () => {
   const [ email, setEmail ] = useState( '' );
   const [ password, setPassword ] = useState( '' );
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const [ signInWithEmailAndPassword, user ] = useSignInWithEmailAndPassword( auth );
 
   const handleEmail = event => {
@@ -18,7 +20,7 @@ const Login = () => {
   };
 
   if ( user ) {
-    navigate( '/' );
+    navigate( from, { replace: true } );
   }
 
   const handleFormSubmit = event => {
