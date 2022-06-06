@@ -11,7 +11,7 @@ const Header = () => {
         <Container>
           <Navbar.Brand>
             <Link to="/">
-              <img src={logo} alt="Logo" />
+              <img className="logo" src={logo} alt="Logo" />
             </Link>
           </Navbar.Brand>
           <Nav className="me-auto">
@@ -23,21 +23,27 @@ const Header = () => {
             </Link>
             <Link
               className="text-white mx-3 text-decoration-none fw-bold"
-              to="/about"
-            >
-              About
-            </Link>
-            <Link
-              className="text-white mx-3 text-decoration-none fw-bold"
               to="/gallery"
             >
               Gallery
             </Link>
             <Link
               className="text-white mx-3 text-decoration-none fw-bold"
+              to="/about"
+            >
+              About
+            </Link>
+            <Link
+              className="text-white mx-3 text-decoration-none fw-bold"
               to="/login"
             >
               Login
+            </Link>
+            <Link
+              className="text-white mx-3 text-decoration-none fw-bold"
+              to="/register"
+            >
+              Register
             </Link>
           </Nav>
         </Container>
