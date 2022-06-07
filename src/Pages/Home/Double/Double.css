@@ -3,3 +3,18 @@
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
 }
+
+@media only screen and (max-width: 768px) {
+    .double-container{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    margin: 10px auto;
+}
+}
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+    .double-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 10px auto;
+}
+}

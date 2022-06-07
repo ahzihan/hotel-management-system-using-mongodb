@@ -1,4 +1,5 @@
 
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import React, { useState } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -11,6 +12,7 @@ const Login = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const [ signInWithEmailAndPassword, user ] = useSignInWithEmailAndPassword( auth );
+  const provider = new GoogleAuthProvider();
 
   const handleEmail = event => {
     setEmail( event.target.value );
@@ -26,6 +28,18 @@ const Login = () => {
   const handleFormSubmit = event => {
     event.preventDefault();
     signInWithEmailAndPassword( email, password );
+  };
+  const handleGoogleSignIn = event => {
+    event.preventDefault();
+    signInWithPopup( auth, provider )
+      .then( result => {
+        const user = result.user;
+        if ( user ) {
+          navigate( from, { replace: true } );
+        }
+      } ).catch( error => {
+        console.error( error );
+      } );
   };
   return (
     <div className="signup-form w-50 mx-auto my-5 p-3">
@@ -59,7 +73,7 @@ const Login = () => {
       <p className="hint-text text-center">Login with your social media account or email address</p>
       <div className="social-btn text-center">
         <Link to="/login" className="btn btn-primary btn-lg">Facebook</Link>
-        <Link to="/login" className="btn btn-primary btn-lg btn-danger"> Google</Link>
+        <Link to="/login" onClick={handleGoogleSignIn} className="btn btn-primary btn-lg btn-danger"> Google</Link>
       </div>
     </div>
   );

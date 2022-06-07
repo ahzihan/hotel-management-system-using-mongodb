@@ -1,9 +1,13 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Cart2 = ( props ) => {
-    const { title, description, img, price } = props.double;
+    const navigate = useNavigate();
+    const { id, title, description, img, price } = props.double;
+    const showDetails = id => {
+        navigate( `/doubledetails/${ id }` );
+    };
     return (
         <div>
             <Card className=''>
@@ -14,7 +18,7 @@ const Cart2 = ( props ) => {
                     <Card.Text>
                         {description}
                     </Card.Text>
-                    <Link to='/details'><Button variant="primary">Book Now</Button></Link>
+                    <Button onClick={() => showDetails( id )} variant="primary">Book Now</Button>
                 </Card.Body>
             </Card>
         </div>

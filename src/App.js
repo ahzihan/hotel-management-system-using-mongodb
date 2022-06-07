@@ -8,7 +8,9 @@ import Login from "./Pages/Login/Login";
 import Gallery from "./Pages/Gallery/Gallery";
 import Register from "./Pages/Register/Register";
 import RequireAuth from "./Pages/RequireAuth/RequireAuth";
-import Details from "./Pages/Home/Details/Details";
+import FamilyDetails from "./Pages/Home/Details/FamilyDetails";
+import SingleDetails from "./Pages/Home/Details/SingleDetails";
+import DoubleDetails from "./Pages/Home/Details/DoubleDetails";
 
 function App() {
   return (
@@ -16,13 +18,24 @@ function App() {
       <Header></Header>
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
+        <Route path="/home" element={<Home></Home>}></Route>
         <Route path="/about" element={<About></About>}></Route>
         <Route path="/gallery" element={<Gallery></Gallery>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/register" element={<Register></Register>}></Route>
-        <Route path="/details" element={
+        <Route path="/singledetails/:singleId" element={
           <RequireAuth>
-            <Details></Details>
+            <SingleDetails></SingleDetails>
+          </RequireAuth>
+        }></Route>
+        <Route path="/doubledetails/:doubleId" element={
+          <RequireAuth>
+            <DoubleDetails></DoubleDetails>
+          </RequireAuth>
+        }></Route>
+        <Route path="/familydetails/:familyId" element={
+          <RequireAuth>
+            <FamilyDetails></FamilyDetails>
           </RequireAuth>
         }></Route>
       </Routes>

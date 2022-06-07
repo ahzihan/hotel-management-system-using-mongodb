@@ -10,7 +10,7 @@ const Family = () => {
   ];
 
   return (
-    <div className="container">
+    <div id="family" className="container">
       <h1 className="fw-light text-center text-lg-start mt-4 mb-0">Family Package Booking Now!</h1>
       <hr className="mt-2 mb-5" />
       <div className="family-container my-5">

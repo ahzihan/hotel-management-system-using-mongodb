@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../../../images/logo.png";
@@ -15,47 +15,27 @@ const Header = () => {
   };
   return (
     <header>
-      <Navbar bg="primary" variant="dark">
+      <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
         <Container>
-          <Navbar.Brand>
-            <Link to="/">
-              <img className="logo" src={logo} alt="Logo" />
-            </Link>
-          </Navbar.Brand>
-          <Nav className="me-auto">
-            <Link
-              className="text-white mx-3 text-decoration-none fw-bold"
-              to="/"
-            >
-              Home
-            </Link>
-            <Link
-              className="text-white mx-3 text-decoration-none fw-bold"
-              to="/gallery"
-            >
-              Gallery
-            </Link>
-            <Link
-              className="text-white mx-3 text-decoration-none fw-bold"
-              to="/about"
-            >
-              About
-            </Link>
-            {
-              user ? <Link onClick={handleSignOut}
-                className="text-white mx-3 text-decoration-none fw-bold"
-                to="/login"
-              >
-                Sign Out
-              </Link> : <Link
-                className="text-white mx-3 text-decoration-none fw-bold"
-                to="/login"
-              >
-                Login
-              </Link>
-            }
-
-          </Nav>
+          <Navbar.Brand as={Link} to="/"><img className="logo" src={logo} alt="Logo" /></Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link className="text-white mx-3 text-decoration-none fw-bold" as={Link} to="/">Home</Nav.Link>
+              <Nav.Link className="text-white mx-3 text-decoration-none fw-bold" as={Link} to="/gallery">Gallery</Nav.Link>
+              <NavDropdown className="text-white mx-3 text-decoration-none fw-bold" title="Services" id="colaps-nab">
+                <NavDropdown.Item href="home#single">Single</NavDropdown.Item>
+                <NavDropdown.Item href="home#double">Double</NavDropdown.Item>
+                <NavDropdown.Item href="home#family">Family</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+            <Nav.Link className="text-white mx-3 text-decoration-none fw-bold" as={Link} to="/about">About</Nav.Link>
+            <Nav>
+              {
+                user ? <Nav.Link onClick={handleSignOut} className="text-white mx-3 text-decoration-none fw-bold" as={Link} to="/login">Sign Out</Nav.Link> : <Nav.Link className="text-white mx-3 text-decoration-none fw-bold" as={Link} to="/login">Login</Nav.Link>
+              }
+            </Nav>
+          </Navbar.Collapse>
         </Container>
       </Navbar>
     </header>

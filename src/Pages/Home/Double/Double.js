@@ -10,7 +10,7 @@ const Double = () => {
   ];
 
   return (
-    <div className="container">
+    <div id="double" className="container">
       <h1 className="fw-light text-center text-lg-start mt-4 mb-0">Double Package Booking Now!</h1>
       <hr className="mt-2 mb-5" />
       <div className="double-container my-5">

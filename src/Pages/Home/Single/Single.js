@@ -10,7 +10,7 @@ const Single = () => {
     { id: '4', title: 'Single Bed Booking Now', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid adipisci, ullam nobis maxime consectetur pariatur fuga a et minima soluta.', price: 1800, img: 'https://i.ibb.co/vjJPPW9/single4.jpg' }
   ];
   return (
-    <div className="container">
+    <div id="single" className="container">
 
       <h1 className="fw-light text-center text-lg-start mt-4 mb-0">Single Package Booking Now!</h1>
       <hr className="mt-2 mb-5" />
