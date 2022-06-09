@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSendPasswordResetEmail } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import auth from "../../firebase.init";
+import 'react-toastify/dist/ReactToastify.css';
 import './Registar.css';
+import Loading from "../Shared/Loading/Loading";
 
 
 const Register = () => {
@@ -11,11 +14,11 @@ const Register = () => {
   const [ confirmPassword, setConfirmPassword ] = useState( '' );
   const navigate = useNavigate();
   const [ error, setError ] = useState( '' );
+  const [ agree, setAgree ] = useState( false );
+  const [ createUserWithEmailAndPassword, user, loading ] = useCreateUserWithEmailAndPassword( auth, { sendEmailVerification: true } );
 
-  const [ createUserWithEmailAndPassword, user ] = useCreateUserWithEmailAndPassword( auth );
-
-  if ( user ) {
-    navigate( '/' );
+  if ( loading ) {
+    return <Loading></Loading>;
   }
   const handleEmail = event => {
     setEmail( event.target.value );
@@ -39,7 +42,8 @@ const Register = () => {
       return;
     }
     createUserWithEmailAndPassword( email, password );
-
+    toast( 'User created successfully.' );
+    navigate( '/' );
   };
   return (
     <div className="signup-form w-50 mx-auto my-5 p-3">
@@ -70,12 +74,14 @@ const Register = () => {
         </div>
         <div className="form-group row">
           <div className="">
-            <p><label className="form-check-label"><input type="checkbox" required="required" /> I accept the Terms of Use &amp; Privacy Policy</label></p>
-            <button type="submit" className="btn btn-primary btn-lg">Sign Up</button>
+            <p><label className={`ps-2 ${ agree ? '' : 'text-danger' }`}>
+              <input onClick={() => setAgree( !agree )} type="checkbox" name="terms" /> I accept the Terms of Use &amp; Privacy Policy</label></p>
+            <ToastContainer />
+            <button disabled={!agree} type="submit" className="btn btn-primary btn-lg">Sign Up</button>
           </div>
         </div>
       </form>
-      <div className="">Already have an account? <Link to="/login">Login here</Link></div>
+      <div>Already have an account? <Link to="/login">Login here</Link></div>
       <div className="or-seperator"><b>or</b></div>
       <p className="hint-text text-center">Sign up with your social media account or email address</p>
       <div className="social-btn text-center">

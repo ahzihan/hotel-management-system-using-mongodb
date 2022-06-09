@@ -1,9 +1,12 @@
-
+import { async } from "@firebase/util";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import React, { useState } from "react";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import auth from "../../firebase.init";
+import 'react-toastify/dist/ReactToastify.css';
+import Loading from "../Shared/Loading/Loading";
 
 const Login = () => {
   const [ email, setEmail ] = useState( '' );
@@ -11,9 +14,13 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  const [ signInWithEmailAndPassword, user ] = useSignInWithEmailAndPassword( auth );
+  const [ signInWithEmailAndPassword, user, loading ] = useSignInWithEmailAndPassword( auth );
   const provider = new GoogleAuthProvider();
+  const [ sendPasswordResetEmail, sending ] = useSendPasswordResetEmail( auth );
 
+  if ( loading || sending ) {
+    return <Loading></Loading>;
+  }
   const handleEmail = event => {
     setEmail( event.target.value );
   };
@@ -24,6 +31,16 @@ const Login = () => {
   if ( user ) {
     navigate( from, { replace: true } );
   }
+  const resetPassword = async () => {
+    if ( email ) {
+      await sendPasswordResetEmail( email );
+      toast( 'Send Email.., Check your mail.' );
+    } else {
+      toast( 'Please Enter Your Email' );
+    }
+
+
+  };
 
   const handleFormSubmit = event => {
     event.preventDefault();
@@ -63,12 +80,13 @@ const Login = () => {
         </div>
         <div className="form-group row">
           <div className="">
-            <p><label className="form-check-label"><input type="checkbox" required="required" /> I accept the Terms of Use &amp; Privacy Policy</label></p>
-            <button type="submit" className="btn btn-primary btn-lg">Login</button>
+            <button type="submit" className="btn btn-primary btn-lg mt-3">Login</button>
           </div>
         </div>
+        <ToastContainer />
       </form>
       <div className="">I have no account? <Link to="/register">SignUp here</Link></div>
+      <p className='mb-0'>Reset Password? <button onClick={resetPassword} className='text-primary btn btn-link text-decoration-none'>Forget Password</button></p>
       <div className="or-seperator"><b>or</b></div>
       <p className="hint-text text-center">Login with your social media account or email address</p>
       <div className="social-btn text-center">
