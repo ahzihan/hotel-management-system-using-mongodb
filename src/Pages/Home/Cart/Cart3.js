@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Cart3 = ( props ) => {
     const navigate = useNavigate();
-    const { id, title, description, img, price } = props.family;
+    const { _id, title, description, img, price } = props.family;
     const showDetails = id => {
         navigate( `/familydetails/${ id }` );
     };
@@ -18,7 +18,7 @@ const Cart3 = ( props ) => {
                     <Card.Text>
                         {description}
                     </Card.Text>
-                    <Button onClick={() => showDetails( id )} variant="primary">Book Now</Button>
+                    <Button onClick={() => showDetails( _id )} variant="primary">Book Now</Button>
                 </Card.Body>
             </Card>
         </div>

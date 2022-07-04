@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Cart2 from "../Cart/Cart2";
 import './Double.css';
 
 const Double = () => {
-  const doublePack = [
-    { id: '1', title: 'Double Bed Booking Now', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid adipisci, ullam nobis maxime consectetur pariatur fuga a et minima soluta.', price: 2500, img: 'https://i.ibb.co/MRGtNCY/doble3.jpg' },
-    { id: '2', title: 'Double Bed Booking Now', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid adipisci, ullam nobis maxime consectetur pariatur fuga a et minima soluta.', price: 2800, img: 'https://i.ibb.co/YTy7g7v/double1.jpg' },
-    { id: '3', title: 'Double Bed Booking Now', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid adipisci, ullam nobis maxime consectetur pariatur fuga a et minima soluta.', price: 3000, img: 'https://i.ibb.co/3hfk6mJ/double2.jpg' }
-  ];
+  const [ doublePack, setDoublePack ] = useState( [] );
+
+  useEffect( () => {
+    fetch( 'http://localhost:5000/double' )
+      .then( res => res.json() )
+      .then( data => setDoublePack( data ) );
+  }, [] );
 
   return (
     <div id="double" className="container">
@@ -15,7 +17,7 @@ const Double = () => {
       <hr className="mt-2 mb-5" />
       <div className="double-container my-5">
         {
-          doublePack.map( double => <Cart2 key={double.id} double={double}></Cart2> )
+          doublePack.map( double => <Cart2 key={double._id} double={double}></Cart2> )
         }
       </div>
     </div>

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Cart = ( props ) => {
     const navigate = useNavigate();
-    const { id, title, description, img, price } = props.single;
+    const { _id, title, description, img, price } = props.single;
     const showDetails = id => {
         navigate( `/singledetails/${ id }` );
     };
@@ -18,7 +18,7 @@ const Cart = ( props ) => {
                     <Card.Text>
                         {description}
                     </Card.Text>
-                    <Button onClick={() => showDetails( id )} variant="primary">Book Now</Button>
+                    <Button onClick={() => showDetails( _id )} variant="primary">Book Now</Button>
                 </Card.Body>
             </Card>
         </div>

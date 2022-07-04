@@ -22,11 +22,15 @@ const Header = () => {
           <Nav className="me-auto">
             <Nav.Link className="text-white mx-3 text-decoration-none fw-bold" as={Link} to="/">Home</Nav.Link>
             <Nav.Link className="text-white mx-3 text-decoration-none fw-bold" as={Link} to="/gallery">Gallery</Nav.Link>
-            <NavDropdown className="text-white mx-3 text-decoration-none fw-bold" title="Services" id="colaps-nab">
-              <NavDropdown.Item href="home#single">Single</NavDropdown.Item>
-              <NavDropdown.Item href="home#double">Double</NavDropdown.Item>
-              <NavDropdown.Item href="home#family">Family</NavDropdown.Item>
-            </NavDropdown>
+            {
+              user && <>
+                <NavDropdown className="text-white mx-3 text-decoration-none fw-bold" title="Services" id="colaps-nab">
+                  <NavDropdown.Item as={Link} to="/addSingle">Add Single</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/manageSingle">Manage Single</NavDropdown.Item>
+                  <NavDropdown.Item href="home#family">Family</NavDropdown.Item>
+                </NavDropdown>
+              </>
+            }
           </Nav>
           <Nav.Link className="text-white mx-3 text-decoration-none fw-bold" as={Link} to="/about">About</Nav.Link>
           <Nav>

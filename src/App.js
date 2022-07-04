@@ -11,6 +11,8 @@ import RequireAuth from "./Pages/RequireAuth/RequireAuth";
 import FamilyDetails from "./Pages/Home/Details/FamilyDetails";
 import SingleDetails from "./Pages/Home/Details/SingleDetails";
 import DoubleDetails from "./Pages/Home/Details/DoubleDetails";
+import AddSingle from "./Pages/Home/Single/AddSingle";
+import ManageSingle from "./Pages/Home/ManagePackages/ManageSingle";
 
 function App() {
   return (
@@ -36,6 +38,16 @@ function App() {
         <Route path="/familydetails/:familyId" element={
           <RequireAuth>
             <FamilyDetails></FamilyDetails>
+          </RequireAuth>
+        }></Route>
+        <Route path="/addSingle" element={
+          <RequireAuth>
+            <AddSingle></AddSingle>
+          </RequireAuth>
+        }></Route>
+        <Route path="/manageSingle" element={
+          <RequireAuth>
+            <ManageSingle></ManageSingle>
           </RequireAuth>
         }></Route>
       </Routes>
